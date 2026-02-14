@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Pra você neném 💖</title>
+<meta property="og:title" content="💖 Eu te amo neném, fiz isso pra você.">
+<meta property="og:description" content="Abre com carinho... tem uma surpresa pra você 🕷️💕">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+.start-screen{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:radial-gradient(ellipse at center,#1a0008,#0a0004,#000);
+    z-index:10000;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    cursor:pointer;transition:opacity 1.5s ease,visibility 1.5s ease;
+    overflow:hidden;
+}
+.start-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
+.web-bg{
+    position:absolute;width:100%;height:100%;opacity:.05;
+    background-image:
+        radial-gradient(circle at 20% 30%,transparent 60%,rgba(255,0,50,.1) 61%,transparent 62%),
+        radial-gradient(circle at 80% 70%,transparent 60%,rgba(255,0,50,.1) 61%,transparent 62%),
+        repeating-conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(255,255,255,.03) 5deg,transparent 10deg);
+}
+.start-spider{
+    font-size:80px;margin-bottom:20px;
+    animation:spiderSwing 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 30px rgba(255,0,50,.5));
+}
+@keyframes spiderSwing{
+    0%,100%{transform:rotate(-5deg) scale(1)}
+    50%{transform:rotate(5deg) scale(1.1)}
+}
+.start-heart-row{
+    font-size:24px;margin-bottom:15px;
+    animation:heartPulseRow 1.5s ease-in-out infinite;
+}
+@keyframes heartPulseRow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+.start-name{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(28px,6vw,42px);
+    background:linear-gradient(135deg,#ff1744,#ff6b8a,#ff1744);
+    background-size:200% 200%;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    animation:nameShine 3s ease-in-out infinite;
+    margin-bottom:8px;
+}
+@keyframes nameShine{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+.start-subtitle{
+    font-family:'Quicksand',sans-serif;
+    font-size:15px;color:rgba(255,180,200,.6);
+    margin-bottom:35px;font-style:italic;
+}
+.start-btn{
+    background:linear-gradient(135deg,#ff1744,#d50000);
+    color:white;border:none;padding:18px 50px;
+    border-radius:60px;font-family:'Quicksand',sans-serif;
+    font-size:18px;font-weight:700;cursor:pointer;
+    box-shadow:0 0 40px rgba(255,23,68,.4),0 8px 30px rgba(0,0,0,.3);
+    animation:btnPulse 2s ease-in-out infinite;
+    transition:all .3s ease;position:relative;overflow:hidden;
+    letter-spacing:1px;
+}
+.start-btn::before{
+    content:'';position:absolute;top:0;left:-100%;
+    width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    animation:btnShine 3s linear infinite;
+}
+@keyframes btnShine{0%{left:-100%}100%{left:100%}}
+@keyframes btnPulse{
+    0%,100%{box-shadow:0 0 40px rgba(255,23,68,.4),0 8px 30px rgba(0,0,0,.3)}
+    50%{box-shadow:0 0 80px rgba(255,23,68,.6),0 8px 30px rgba(0,0,0,.3)}
+}
+.start-btn:hover{transform:scale(1.08)}
+.start-spider-web{position:absolute;top:0;right:0;width:200px;height:200px;opacity:.08}
+body{
+    background:radial-gradient(ellipse at center,#1a0008 0%,#0a0004 50%,#000 100%);
+    font-family:'Quicksand',sans-serif;color:#fff;
+    min-height:100vh;overflow-x:hidden;
+}
+.main-page{
+    display:flex;flex-direction:column;align-items:center;
+    padding:20px 16px 100px;
+    opacity:0;transition:opacity 1.5s ease 0.5s;
+}
+.main-page.show{opacity:1}
+.particles{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    pointer-events:none;z-index:1;overflow:hidden;
+}
+.ptcl{position:absolute;bottom:-20px;animation:ptclUp linear infinite}
+@keyframes ptclUp{
+    0%{transform:translateY(0) rotate(0deg) scale(1);opacity:0}
+    5%{opacity:.8}80%{opacity:.5}
+    100%{transform:translateY(-110vh) rotate(720deg) scale(.2);opacity:0}
+}
+.web-decor{position:fixed;pointer-events:none;z-index:0;opacity:.04}
+.web-decor.top-left{top:0;left:0}
+.web-decor.bottom-right{bottom:0;right:0;transform:rotate(180deg)}
+.container{position:relative;z-index:2;width:100%;max-width:500px}
+.spidey-header{text-align:center;margin-bottom:10px;animation:fadeDown 1s ease-out}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+.spidey-icon{
+    font-size:60px;
+    filter:drop-shadow(0 0 20px rgba(255,23,68,.5));
+    animation:spideyBounce 3s ease-in-out infinite;
+    display:inline-block;
+}
+@keyframes spideyBounce{
+    0%,100%{transform:translateY(0) rotate(0deg)}
+    25%{transform:translateY(-15px) rotate(-5deg)}
+    75%{transform:translateY(-10px) rotate(5deg)}
+}
+.web-line{
+    width:2px;height:60px;
+    background:linear-gradient(180deg,rgba(255,255,255,.3),transparent);
+    margin:0 auto;animation:webGrow 1.5s ease-out;
+}
+@keyframes webGrow{from{height:0;opacity:0}to{height:60px;opacity:1}}
+.heart-container{
+    display:flex;justify-content:center;margin:10px 0 20px;
+    animation:fadeUp 1.2s ease-out;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.main-heart{width:120px;height:120px;position:relative;animation:heartbeat 1.3s ease-in-out infinite}
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}15%{transform:scale(1.15)}
+    30%{transform:scale(1)}45%{transform:scale(1.1)}60%{transform:scale(1)}
+}
+.main-heart svg{
+    width:100%;height:100%;
+    filter:drop-shadow(0 0 25px rgba(255,23,68,.6)) drop-shadow(0 0 50px rgba(255,23,68,.3));
+}
+.orbit-text{
+    position:absolute;top:50%;left:50%;width:200px;height:200px;
+    transform:translate(-50%,-50%);animation:orbitSpin 12s linear infinite;
+}
+@keyframes orbitSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.orbit-text svg{width:100%;height:100%}
+.orbit-text svg text{fill:#ff6b8a;font-family:'Dancing Script',cursive;font-size:13px;letter-spacing:3px}
+.orbit-ring{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    border:1px solid rgba(255,23,68,.15);border-radius:50%;
+    animation:ringOrbit linear infinite;
+}
+.orbit-ring:nth-child(1){width:180px;height:180px;animation-duration:8s}
+.orbit-ring:nth-child(2){width:220px;height:220px;animation-duration:12s;animation-direction:reverse}
+.orbit-ring::after{content:'🕸️';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:14px}
+.orbit-ring:nth-child(2)::after{content:'💖'}
+@keyframes ringOrbit{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.title-section{text-align:center;margin-bottom:25px;animation:fadeUp 1.5s ease-out}
+.title-section h1{
+    font-family:'Dancing Script',cursive;font-size:clamp(28px,6vw,44px);
+    background:linear-gradient(135deg,#ff1744,#ff6b8a,#ff8a80);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    line-height:1.3;filter:drop-shadow(0 0 20px rgba(255,23,68,.3));
+}
+.title-section .sub{font-size:14px;color:rgba(255,150,170,.5);margin-top:6px;font-style:italic;letter-spacing:2px}
+.love-panel{
+    background:linear-gradient(160deg,rgba(255,23,68,.08),rgba(255,255,255,.04),rgba(255,23,68,.05));
+    backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+    border:1px solid rgba(255,23,68,.2);border-radius:28px;padding:40px 30px;
+    text-align:center;position:relative;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 40px rgba(255,23,68,.08),inset 0 1px 0 rgba(255,255,255,.06);
+    animation:panelAppear 1.8s ease-out .5s both;
+}
+@keyframes panelAppear{from{opacity:0;transform:translateY(50px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.panel-corner{position:absolute;width:60px;height:60px;opacity:.1}
+.panel-corner.tl{top:0;left:0;border-top:2px solid #ff1744;border-left:2px solid #ff1744;border-radius:28px 0 0 0}
+.panel-corner.tr{top:0;right:0;border-top:2px solid #ff1744;border-right:2px solid #ff1744;border-radius:0 28px 0 0}
+.panel-corner.bl{bottom:0;left:0;border-bottom:2px solid #ff1744;border-left:2px solid #ff1744;border-radius:0 0 0 28px}
+.panel-corner.br{bottom:0;right:0;border-bottom:2px solid #ff1744;border-right:2px solid #ff1744;border-radius:0 0 28px 0}
+.panel-spidey{font-size:40px;margin-bottom:10px;display:block}
+.panel-hearts{font-size:26px;margin-bottom:15px;animation:heartPulseRow 2s ease-in-out infinite}
+.panel-to{font-family:'Dancing Script',cursive;font-size:22px;color:#ff8a80;margin-bottom:4px}
+.panel-name{
+    font-family:'Dancing Script',cursive;font-size:clamp(30px,6vw,40px);
+    color:#ffcdd2;text-shadow:0 0 20px rgba(255,23,68,.4);margin-bottom:20px;
+}
+.divider{
+    width:60%;height:2px;margin:18px auto;
+    background:linear-gradient(90deg,transparent,rgba(255,23,68,.5),rgba(255,180,200,.7),rgba(255,23,68,.5),transparent);
+    position:relative;
+}
+.divider::after{
+    content:'🕷️';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:rgba(26,0,8,.9);padding:0 10px;font-size:14px;
+}
+.message{
+    color:#ffe0e6;font-size:16px;line-height:2;margin:20px 0;padding:0 10px;
+    opacity:0;animation:revealMsg 2s ease-out 2.5s forwards;
+}
+@keyframes revealMsg{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.signature{margin-top:22px;opacity:0;animation:revealMsg 1.5s ease-out 4s forwards}
+.signature .de{font-size:14px;color:#ff8a80;font-style:italic}
+.signature .nome{
+    font-family:'Dancing Script',cursive;font-size:30px;color:#ffcdd2;
+    margin-top:4px;text-shadow:0 0 15px rgba(255,23,68,.3);
+}
+.final-row{margin-top:20px;font-size:20px;letter-spacing:4px;opacity:0;animation:revealMsg 1.5s ease-out 5s forwards}
+.spidey-section{margin-top:25px;animation:fadeUp 2s ease-out 1s both}
+.spidey-card{
+    background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.15);
+    border-radius:20px;padding:20px;margin-bottom:12px;
+    display:flex;align-items:center;gap:15px;transition:all .3s ease;
+}
+.spidey-card:hover{transform:translateY(-3px);border-color:rgba(255,23,68,.4);box-shadow:0 8px 30px rgba(255,23,68,.15)}
+.spidey-card .emoji{font-size:36px;flex-shrink:0}
+.spidey-card .text{font-size:14px;color:rgba(255,220,230,.7);line-height:1.6}
+.spidey-card .text strong{color:#ff8a80}
+.footer{text-align:center;margin-top:35px;opacity:0;animation:revealMsg 1.5s ease-out 5.5s forwards}
+.infinity{
+    font-size:50px;display:block;margin-bottom:5px;
+    animation:pulseInf 2s ease-in-out infinite;
+    filter:drop-shadow(0 0 15px rgba(255,23,68,.4));
+}
+@keyframes pulseInf{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.2);opacity:1}}
+.footer p{color:rgba(255,150,170,.3);font-size:12px;font-style:italic}
+.footer .spidey-tag{margin-top:10px;font-size:13px;color:rgba(255,23,68,.4)}
+.music-player{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:999;
+    background:linear-gradient(135deg,rgba(26,0,8,.95),rgba(40,0,15,.95));
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,23,68,.25);border-radius:18px;
+    padding:10px 22px;display:none;align-items:center;gap:14px;
+    cursor:pointer;transition:all .3s ease;max-width:340px;
+    box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 20px rgba(255,23,68,.1);
+}
+.music-player:hover{transform:translateX(-50%) scale(1.03)}
+.music-player .spider-icon{font-size:20px}
+.eq{display:flex;align-items:end;gap:2px;height:16px}
+.eq span{
+    width:3px;border-radius:2px;
+    background:linear-gradient(180deg,#ff1744,#ff6b8a);
+    animation:eqBar .5s ease-in-out infinite alternate;
+}
+.eq span:nth-child(1){height:6px;animation-delay:0s}
+.eq span:nth-child(2){height:14px;animation-delay:.1s}
+.eq span:nth-child(3){height:4px;animation-delay:.25s}
+.eq span:nth-child(4){height:10px;animation-delay:.15s}
+.eq span:nth-child(5){height:8px;animation-delay:.3s}
+@keyframes eqBar{0%{height:3px}100%{height:16px}}
+.m-info .label{font-size:10px;color:rgba(255,150,170,.4)}
+.m-info .song{font-size:12px;font-weight:600;color:#ffcdd2}
+.click-heart{position:fixed;pointer-events:none;z-index:9998;font-size:20px;transition:all 1.2s ease-out;opacity:1}
+@media(max-width:480px){
+    .love-panel{padding:30px 20px;border-radius:22px}
+    .message{font-size:15px;line-height:1.9}
+    .main-heart{width:100px;height:100px}
+    .orbit-text{width:170px;height:170px}
+    .orbit-ring:nth-child(1){width:150px;height:150px}
+    .orbit-ring:nth-child(2){width:190px;height:190px}
+    .start-btn{padding:16px 40px;font-size:16px}
+    .music-player{left:12px;right:12px;transform:none;max-width:none;justify-content:center}
+    .music-player:hover{transform:scale(1.02)}
+}
+</style>
+</head>
+<body>
+<script>
+// ============================================
+//    EDITE SOMENTE AQUI EMBAIXO
+// ============================================
+const CONFIG = {
+    nomeDela:    "pf amorzin da mvd",
+    seuNome:     "k9/Andrade",
+    mensagem:    "Neném, quero que você saiba o quão especial você é pra mim baby.\nCada dia q passa me apaixono cada vez mais por você, um presente que a vida me deu e que eu vou guarda com segurança sempre minha princesa.\nVocê é o motivo da minha felicidade todos os dias mvd, o conforto nos meus dias difíceis e a alegria nas minhas horas felizes sabe?\nCada vez que penso em você, encontro um mundo de amor que faz com que eu me sinta a melhor pessoa do mundo.\nA sua presença na minha vida ilumina todos os meus dias babyzinha.\nSuas palavras suaves são como uma canção pra dormir que embala meus pensamentos antes de dormir.\nSua bondade é a carícia que acalma minha alma e aquece meu coração.\nE, mais doq isso, você é o meu lugarzin aconchegante sabe? O abrigo para onde corro e me sinto seguro d+.\nCom você, sei que posso enfrentar qualquer desafio, superar qualquer obstáculo mvd.\nÀs vezes, é difícil expressar com palavras o que sinto porque não da pra descrever, mas saiba que a intensidade do meu amor por você é inexprimível.\nEle transcende o tempo e acumula cada vez mais meu amor e felicidade por você, é eterno como as estrelas no céu neném.\nPrometo sempre cuidar de você mvd, cuidar de você e te amar com todo o meu orgulho que tenho de você e muito mais, hoje e para sempre.\nVocê é a minha preciosa e sempre vai ser, a razão da minha existência, o amorzin da minha vida.\nEu te amo infinitamente meu amorzin. 🕷️❤️",
+    youtubeId:   "TpDx1Fx0L1jQu410",
+    nomeMusica:  "Her Way"
+};
+// ============================================
+</script>
+
+<div class="start-screen" id="startScreen">
+    <div class="web-bg"></div>
+    <svg class="start-spider-web" viewBox="0 0 200 200" fill="none" stroke="rgba(255,255,255,.1)" stroke-width=".5">
+        <path d="M0,0 L200,200 M0,0 L100,200 M0,0 L200,100 M0,0 L50,200 M0,0 L200,50 M0,0 L0,200 M0,0 L200,0"/>
+        <path d="M20,20 Q100,30 180,20 M30,50 Q100,60 170,50 M40,90 Q100,100 160,90 M50,140 Q100,150 150,140" stroke="rgba(255,255,255,.05)"/>
+    </svg>
+    <div class="start-spider">🕷️</div>
+    <div class="start-heart-row">💖 💕 💖</div>
+    <div class="start-name" id="startName"></div>
+    <div class="start-subtitle">Alguém especial preparou algo pra você...</div>
+    <button class="start-btn" onclick="openPanel()">🕸️ Toque aqui pra abrir 💖</button>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<svg class="web-decor top-left" width="200" height="200" viewBox="0 0 200 200" fill="none" stroke="rgba(255,23,68,.3)" stroke-width=".5">
+    <path d="M0,0 L200,200"/><path d="M0,0 L100,200"/><path d="M0,0 L200,100"/>
+    <path d="M0,0 L50,200"/><path d="M0,0 L200,50"/><path d="M0,0 L0,200"/><path d="M0,0 L200,0"/>
+    <path d="M15,15 Q100,25 185,15" stroke="rgba(255,23,68,.15)"/>
+    <path d="M25,45 Q100,55 175,45" stroke="rgba(255,23,68,.1)"/>
+    <path d="M35,85 Q100,95 165,85" stroke="rgba(255,23,68,.07)"/>
+    <path d="M45,135 Q100,145 155,135" stroke="rgba(255,23,68,.05)"/>
+</svg>
+
+<svg class="web-decor bottom-right" width="200" height="200" viewBox="0 0 200 200" fill="none" stroke="rgba(255,23,68,.3)" stroke-width=".5">
+    <path d="M0,0 L200,200"/><path d="M0,0 L100,200"/><path d="M0,0 L200,100"/>
+    <path d="M0,0 L50,200"/><path d="M0,0 L200,50"/>
+    <path d="M15,15 Q100,25 185,15" stroke="rgba(255,23,68,.15)"/>
+    <path d="M25,45 Q100,55 175,45" stroke="rgba(255,23,68,.1)"/>
+</svg>
+
+<div class="main-page" id="mainPage">
+<div class="container">
+
+    <div class="spidey-header">
+        <span class="spidey-icon">🕷️</span>
+        <div class="web-line"></div>
+    </div>
+
+    <div class="heart-container">
+        <div class="main-heart" style="position:relative">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-text">
+                <svg viewBox="0 0 200 200">
+                    <defs><path id="cp" d="M100,100 m-85,0 a85,85 0 1,1 170,0 a85,85 0 1,1 -170,0"/></defs>
+                    <text><textPath href="#cp" startOffset="0%">&#9829; I Love You &#9829; Te Amo &#9829; I Love You &#9829; Te Amo </textPath></text>
+                </svg>
+            </div>
+            <svg viewBox="0 0 200 200">
+                <defs>
+                    <radialGradient id="hg" cx="40%" cy="35%" r="60%">
+                        <stop offset="0%" style="stop-color:#ff8a80"/>
+                        <stop offset="40%" style="stop-color:#ff1744"/>
+                        <stop offset="100%" style="stop-color:#b71c1c"/>
+                    </radialGradient>
+                    <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+                </defs>
+                <path fill="url(#hg)" filter="url(#glow)"
+                    d="M100 175 C65 140,-5 100,15 60 C28 30,58 22,78 42
+                       C88 52,95 58,100 68 C105 58,112 52,122 42
+                       C142 22,172 30,185 60 C205 100,135 140,100 175Z"/>
+                <ellipse cx="68" cy="62" rx="16" ry="10"
+                    fill="rgba(255,255,255,.15)" transform="rotate(-25,68,62)"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="title-section">
+        <h1>💕 Declaração de Amor 💕</h1>
+        <p class="sub">🕸️ feita com carinho pelo amor da sua vida 🕸️</p>
+    </div>
+
+    <div class="love-panel">
+        <div class="panel-corner tl"></div>
+        <div class="panel-corner tr"></div>
+        <div class="panel-corner bl"></div>
+        <div class="panel-corner br"></div>
+        <span class="panel-spidey">🕷️</span>
+        <div class="panel-hearts">💖 🕸️ 💖</div>
+        <p class="panel-to">Pra você neném,</p>
+        <p class="panel-name" id="panelName"></p>
+        <div class="divider"></div>
+        <div class="message" id="messageBox"></div>
+        <div class="divider"></div>
+        <div class="signature">
+            <p class="de">Com todo meu amor,</p>
+            <p class="nome" id="signatureName"></p>
+        </div>
+        <div class="final-row">❤️ 🕷️ 🕸️ 💖 🕸️ 🕷️ ❤️</div>
+    </div>
+
+    <div class="spidey-section">
+        <div class="spidey-card">
+            <div class="emoji">🕷️❤️</div>
+            <div class="text"><strong>Assim como Peter Parker protege a MJ,</strong> eu vou sempre te proteger e te fazer feliz.</div>
+        </div>
+        <div class="spidey-card">
+            <div class="emoji">🕸️💕</div>
+            <div class="text"><strong>Minha teia mais forte</strong> é a que me conecta a você. Nada no mundo consegue quebrar.</div>
+        </div>
+        <div class="spidey-card">
+            <div class="emoji">🦸‍♂️💖</div>
+            <div class="text"><strong>Todo herói tem sua inspiração.</strong> Você é a minha. Minha heroína, minha força.</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span class="infinity">♾️</span>
+        <p>Meu amor por você é infinito</p>
+        <p class="spidey-tag">🕷️ Com grandes poderes, vem grande amor 🕷️</p>
+    </div>
+
+</div>
+</div>
+
+<div id="ytWrap" style="position:fixed;bottom:-500px;left:-500px;opacity:0;pointer-events:none">
+    <div id="ytPlayer"></div>
+</div>
+<div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+    <span class="spider-icon">🕷️</span>
+    <div class="eq" id="eqBars"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="m-info">
+        <div class="label">🎵 Tocando pra você</div>
+        <div class="song" id="songName"></div>
+    </div>
+</div>
+
+<script>
+document.getElementById('startName').textContent = CONFIG.nomeDela;
+document.getElementById('panelName').textContent = '\u2728 ' + CONFIG.nomeDela + ' \u2728';
+document.getElementById('signatureName').textContent = '\uD83D\uDC98 ' + CONFIG.seuNome + ' \uD83D\uDC98';
+document.getElementById('songName').textContent = CONFIG.nomeMusica;
+document.title = '\uD83D\uDC96 Para ' + CONFIG.nomeDela + ' \uD83D\uDC96';
+document.getElementById('messageBox').innerHTML = CONFIG.mensagem.replace(/\n/g, '<br>');
+
+function openPanel(){
+    document.getElementById('startScreen').classList.add('hide');
+    document.getElementById('mainPage').classList.add('show');
+    startParticles();
+    if(CONFIG.youtubeId) loadYouTube();
+}
+
+function loadYouTube(){
+    var tag=document.createElement('script');
+    tag.src="https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+}
+
+var ytP,isPlaying=false;
+function onYouTubeIframeAPIReady(){
+    ytP=new YT.Player('ytPlayer',{
+        height:'1',width:'1',videoId:CONFIG.youtubeId,
+        playerVars:{autoplay:1,controls:0,loop:1,playlist:CONFIG.youtubeId,modestbranding:1,rel:0},
+        events:{onReady:function(e){
+            e.target.setVolume(60);e.target.playVideo();isPlaying=true;
+            document.getElementById('musicPlayer').style.display='flex';
+        }}
+    });
+}
+function toggleMusic(){
+    if(!ytP)return;
+    if(isPlaying){ytP.pauseVideo();document.querySelectorAll('.eq span').forEach(function(s){s.style.animationPlayState='paused'})}
+    else{ytP.playVideo();document.querySelectorAll('.eq span').forEach(function(s){s.style.animationPlayState='running'})}
+    isPlaying=!isPlaying;
+}
+
+function startParticles(){
+    var container=document.getElementById('particles');
+    var items=['❤️','💕','💖','♥️','🕸️','🕷️','💗','💘','🩷','✨'];
+    function spawn(){
+        var p=document.createElement('div');p.className='ptcl';
+        p.textContent=items[Math.floor(Math.random()*items.length)];
+        p.style.left=Math.random()*100+'%';
+        p.style.fontSize=(Math.random()*16+12)+'px';
+        var dur=Math.random()*7+5;
+        p.style.animationDuration=dur+'s';
+        p.style.animationDelay=Math.random()*2+'s';
+        container.appendChild(p);
+        setTimeout(function(){p.remove()},(dur+3)*1000);
+    }
+    setInterval(spawn,400);
+    for(var i=0;i<25;i++) setTimeout(spawn,i*150);
+}
+
+document.addEventListener('click',function(e){
+    if(e.target.closest('.start-screen')||e.target.closest('.music-player'))return;
+    var emojis=['❤️','💖','🕷️','🕸️','💕','💗','✨','🩷'];
+    for(var i=0;i<10;i++){
+        var h=document.createElement('div');h.className='click-heart';
+        h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+        h.style.left=e.clientX+'px';h.style.top=e.clientY+'px';
+        h.style.fontSize=(Math.random()*14+14)+'px';
+        document.body.appendChild(h);
+        var angle=(Math.PI*2/10)*i;var dist=Math.random()*90+50;
+        (function(el,a,d){
+            setTimeout(function(){
+                el.style.transform='translate('+Math.cos(a)*d+'px,'+(Math.sin(a)*d-60)+'px) scale(0.2) rotate('+Math.random()*360+'deg)';
+                el.style.opacity='0';
+            },10);
+            setTimeout(function(){el.remove()},1300);
+        })(h,angle,dist);
+    }
+});
+
+document.addEventListener('mousemove',function(e){
+    if(Math.random()>0.7)return;
+    var p=document.createElement('div');
+    p.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+e.clientX+'px;top:'+e.clientY+'px;font-size:'+(Math.random()*8+8)+'px;transition:all .8s ease-out;opacity:1;';
+    var chars=['\u2726','\u2665','\uD83D\uDD78\uFE0F','\u00B7'];
+    p.textContent=chars[Math.floor(Math.random()*4)];
+    document.body.appendChild(p);
+    setTimeout(function(){p.style.opacity='0';p.style.transform='translateY(-'+(Math.random()*30+10)+'px) scale(0)'},10);
+    setTimeout(function(){p.remove()},800);
+});
+</script>
+</body>
+</html>
